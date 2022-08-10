@@ -312,7 +312,7 @@ kmeans.assig.groups=function(out,draw=FALSE,...){
 
 
 kmeans.fdM<-function (fdataobj, ncl = 2, Vmdist=FALSE,coord=NULL,
-                      cov.model="spherical", Kappa=NULL, multivgm=multivgm,
+                      cov.model="Gau", Kappa=NULL, multivgm=multivgm,
                       dfunc = func.trim.FM, 
                       max.iter = 10000, par.dfunc = list(trim = 0.05), 
                       method = "sample", cluster.size = 1, draw = FALSE, ...) 
