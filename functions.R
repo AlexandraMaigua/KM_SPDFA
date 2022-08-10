@@ -311,10 +311,10 @@ kmeans.assig.groups=function(out,draw=FALSE,...){
 }
 
 
-kmeans.fdM<-function (fdataobj, ncl = 2, metric = metric.lp,Vmdist=FALSE,coord=NULL,
+kmeans.fdM<-function (fdataobj, ncl = 2, Vmdist=FALSE,coord=NULL,
                       cov.model="spherical", Kappa=NULL, multivgm=multivgm,
                       dfunc = func.trim.FM, 
-                      max.iter = 10000, par.metric = NULL, par.dfunc = list(trim = 0.05), 
+                      max.iter = 10000, par.dfunc = list(trim = 0.05), 
                       method = "sample", cluster.size = 1, draw = FALSE, ...) 
 {
   if (!is.fdata(fdataobj)) 
@@ -341,10 +341,7 @@ kmeans.fdM<-function (fdataobj, ncl = 2, metric = metric.lp,Vmdist=FALSE,coord=N
       par.ini$coord = coord
       par.ini$cov.model=cov.model
       par.ini$Kappa=Kappa
-      par.ini$multivgm=multivgm
-      if (!is.null(par.metric)) 
-        par.ini$par.metric <- par.metric
-      par.ini$... <- par.metric
+      par.ini$multivgm=multivgm      
       out1 = do.call(kmeans.center.iniL2, par.ini)
       lxm <- out1$lcenters 
       out1$d = rbind(out1$z.dist, out1$z.dist[lxm, ])
