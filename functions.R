@@ -50,14 +50,11 @@ library(gdata)
 
 kmeans.center.iniL2<-function (fdataobj,Vmdist=FALSE,coord=NULL, ncl = 2,
                                cov.model="spherical", Kappa=NULL,multivgm=multivgm,
-                               method = "sample", max.iter = 10000, max.comb = 1e+06, 
-                               par.metric = NULL, ...) 
+                               method = "sample", max.iter = 10000, max.comb = 1e+06, ...) 
 {
   if (!is.fdata(fdataobj)) 
     fdataobj = fdata(fdataobj)
-  if (is.null(par.metric)) 
-    par.metric = list()
-  par.metric$fdata1 <- fdataobj
+  
   z <- fdataobj[["data"]]
   if(!isTRUE(Vmdist) && is.null(coord))
   {
