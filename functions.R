@@ -130,6 +130,8 @@ kmeans.center.iniL2<-function (fdataobj,Vmdist=FALSE,coord=NULL, ncl = 2,
 library(geoR)
 library(gstat)
 
+
+# añadir más parámetros a la función
 MVari<-function(data,coord,nugget.fix=NULL, max.dist.variogram=NULL,
                 multivgm=multivgm ,nbasis=65,cov.model="Gau",Kappa=NULL)
 {
