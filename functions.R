@@ -50,7 +50,7 @@ library(gdata)
 
 kmeans.center.iniL2<-function (fdataobj,Vmdist=FALSE,coord=NULL, ncl = 2,
                                cov.model="spherical", Kappa=NULL,multivgm=multivgm,
-                               method = "exact", max.iter = 10000, max.comb = 1e+06, 
+                               method = "sample", max.iter = 10000, max.comb = 1e+06, 
                                par.metric = NULL, ...) 
 {
   if (!is.fdata(fdataobj)) 
