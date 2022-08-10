@@ -240,10 +240,9 @@ library(fda)
 library(fda.usc)
 
 
-kmeans.centers.update=function(out,group
-                               ,dfunc=func.trim.FM,draw=FALSE
-                               ,par.dfunc=list(trim=0.05)
-                               ,...){
+kmeans.centers.update=function(out,group,
+                               dfunc=func.trim.FM,draw=FALSE
+                               par.dfunc=list(trim=0.05),...){
   if (class(out)!="kmeans.fd") 
     stop("Error: incorrect input data")
   z = out$fdataobj[["data"]]
