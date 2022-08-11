@@ -589,18 +589,13 @@ Datsim<-function(Eu.d,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
 
 
 
-Datsim1<-function(Eu.d=NULL,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
-                media=c(5,15)){
-  if(is.null(Kappa)){
-    Sigma1=diag(120)
-    sim1=rmvnorm(365,mean=c(rep(media[1],30),rep(media[2],30),
-                            rep(media[2],30),rep(media[1],30)), sigma=Sigma1)
-  }
-  else{
-    Sigma1=cov(matrix(rnorm(14400,0,1),nrow = 120,ncol = 120))
-    sim1=rmvnorm(365,mean=c(rep(media[1],30),rep(media[2],30),
-                            rep(media[2],30),rep(media[1],30)), sigma=Sigma1)
-  }
+Datsim1<-function(media=c(5,15)){
+  
+ Sigma1=diag(120)
+  
+ sim1=rmvnorm(365,mean=c(rep(media[1],30),rep(media[2],30),
+      rep(media[2],30),rep(media[1],30)), sigma=Sigma1)
+  
   return(sim1)
 }
 
