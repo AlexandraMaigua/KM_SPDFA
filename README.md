@@ -7,7 +7,7 @@ Este algoritmo se basó en la función `kmeans.fd` de la librería [`fda.usc`](h
 
 ### `functions.R`
 
-Contiene todas la mayotia de funciones para la ejecucuíon del algoritmo **K-medias**
+Contiene todas la mayoria de funciones para la ejecucuíon del algoritmo **K-medias**
 
 + `Ml2_dist(data, nbasis=65)`
   + Calcula la matriz de distancia entre curvas utilizando la norma $L^2$.
@@ -96,8 +96,24 @@ Contiene todas la mayotia de funciones para la ejecucuíon del algoritmo **K-med
    + Calcula el índice SSW, intra grupos. Trabaja con los centroides y las curvas asociadas a cada cluster.
    + `a` objeto resultante de aplicar la función `kmeans.fdas`.
    + `data` matriz con curvas.
- 
 
++ `metod(datat,metodo="tvm")`
+  + Calcula el porcentaje de correcta clasificación.
+  + `datat` objeto resultante del proceso de simulación (`simu9.R`).
+  + `metodo` especifica los resultados obtenidos del método `mtv` o `tvm`.
+
++ `Datsim(Eu.d,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
+                media=c(5,6))`
+  + Simula curvas con correlación espacial.
+  + `Eu.d` matriz de distancias espacial.
+  +  `cov.model` modelo de covarianza espacial para la dependencia espacial.
+  +  `cov.pars` parámetros del modelo de covarianza.
+  +  `Kappa` parámetro si se utiliza `cov.model="Mat"`.
+  +  `media` vector de valores de las medias funcionales constantes.
+
++ `Datsim1(Eu.d=NULL,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
+                media=c(5,15))`
+  + Simula curvas sin correlación espacial.
 
 
 
