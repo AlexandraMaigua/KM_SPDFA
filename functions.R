@@ -502,80 +502,12 @@ SSWindex<-function(a,data)
 }
 
 
-Siluetindex<-function(a){
-  si<-list()
-  for(k in 1:length(a$centers))
-  {
-    
-    b<-which(a$cluster==k)
-    if(length(b)==1){
-      si[[k]]<-1
-    }
-    else{
-      c<-data[,b]
-      distancias<-Ml2_dist(c)
-      ai<-c()
-      for (i in 1:length(b)) {
-        
-        ai[i]<-sum(distancias[i,])/(length(distancias[i,])-1)  
-      }  
-      distcent<-Ml2_dist(t(a$centers$data))
-      
-      
-      d<-which(min(distcent[k,-k])==distcent[k,])
-      b1<-which(a$cluster==d[1])
-      c1<-data[,b1]
-      
-      cc1<-cbind(c,c1)
-      distancias2<-Ml2_dist(cc1)
-      bi<-c()
-      for (i in 1:length(ai)) {
-        
-        bi[i]<-sum(distancias2[i,-(1:length(ai))])/(length(distancias2[i,-(1:length(ai))]))  
-      }
-      si[[k]]<-(bi-ai)/max(ai,bi)
-    }
-  }
-  return(si)
-}
-
-
-Dunnindex<-function(a){
-  
-  centros<-a$centers$data
-  distcent<-Ml2_dist(t(centros),15)
-  dk<-c()
-  for(i in 1:length(a$centers)){
-    i=1
-    b<-which(a$cluster==i)
-    if(length(b)==1){
-      dk[i]<-1
-    }
-    else{
-      c<-data[,b]
-      distancias<-Ml2_dist((c),15) #estaba sin t
-      dk[i]<-max(distancias) 
-    }
-  }
-  mdk<-max(dk)
-  djt<-c()
-  for (j in 1:length(a$centers)) {
-    for (t in 1:length(a$centers)) {
-      if(j!=t){
-        djt[j]<-min(distcent[j,t]/mdk)
-      }
-    }
-    
-  }
-  return(min(djt))
-}
-
-
 #------------------------------------------------
 
 library(dplyr)
 
-metod=function(datat,metodo="tvm"){
+# mejorar o hacer una  nueva
+metod<-function(datat,metodo="tvm"){
 
   metodo=ifelse(metodo=="tvm","mtv","tvm")
 
@@ -634,7 +566,7 @@ metod=function(datat,metodo="tvm"){
 }
 
 
-Datsim=function(Eu.d,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
+Datsim<-function(Eu.d,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
                 media=c(5,6)){
   if(is.null(Kappa)){
     cov.model=tolower(cov.model)
@@ -657,7 +589,7 @@ Datsim=function(Eu.d,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
 
 
 
-Datsim1=function(Eu.d=NULL,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
+Datsim1<-function(Eu.d=NULL,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
                 media=c(5,15)){
   if(is.null(Kappa)){
     Sigma1=diag(120)
