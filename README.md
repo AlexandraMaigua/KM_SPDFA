@@ -5,6 +5,7 @@ Este algoritmo se basó en la función `kmeans.fd` de la librería [`fda.usc`](h
 
 ## Instructivo
 
+------------------------------------------------------------------------------------
 ### `functions.R`
 
 Contiene todas la mayoria de funciones para la ejecucuíon del algoritmo **K-medias**
@@ -114,6 +115,80 @@ Contiene todas la mayoria de funciones para la ejecucuíon del algoritmo **K-med
 + `Datsim1(Eu.d=NULL,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
                 media=c(5,15))`
   + Simula curvas sin correlación espacial.
+  
+-------------------------------------------------------------------------------
+### `aplderiv.R`
+
+Script que contiene la aplicación del método anterior (`kmean.fdas`) a los datos del NDVI del Ecuador y también realiza el gráfico de los grupos obtenidos.
+
+-------------------------------------------------------------------------------
+### `bout.Rdata`
+
+Objeto que contiene la clasificación final de los datos del NDVI.
+
+-------------------------------------------------------------------------------
+### `covariances.R` (revisar)
+
+Script que genera la matriz de covarianza a través de los coeficientes de la funciones base. Usa parámetros del modelo lineal de corregionalización.
+
+-------------------------------------------------------------------------------
+### `fgeary.R`
+
+Script que contine la función para el cálculo de correlación espacial utilizando el índice de Geary. La función está diseñada para que se utilice en procesos de paralelos. 
+
+-------------------------------------------------------------------------------
+### `fit.lmc.R` (revisar)
+
+Estima un modelo lineal de corregionalización a los coeficientes de la base de funciones.
+
+-------------------------------------------------------------------------------
+### `fmoran.R`
+
+Script que contine la función para el cálculo de correlación espacial utilizando el índice de Moran. La función está diseñada para que se utilice en procesos de paralelos. 
+
+
+-------------------------------------------------------------------------------
+### `git_ghsp.R`
+
+Script que se utiliza para la generación de gráficos de la clasificación de grupos sobre shapes de demarcación hidrográfica.
+
+-------------------------------------------------------------------------------
+### `git_pixeles.R`
+
+Script utilizado para crear gráficos de grupos obtenidos por pares, sobre shapes de demarcación hidrográfica.
+
+-------------------------------------------------------------------------------
+### `git_simu4.R`
+
+Script utilizado para realizar simulaciones específicas y obtener la clasificación de manera gráfica.
+
+-------------------------------------------------------------------------------
+### `git_simu9.R`
+
+Script utilizado para realizar las simulaciones en paralelo y obtener los porcentajes de correcta clasificación.
+
+-------------------------------------------------------------------------------
+### `git_test_function.R`
+
+Script para la realización de gráfcios de curvas en cada grupo y correlaciones espaciales y temporales.
+
+-------------------------------------------------------------------------------
+### `multiv.R` (**revisar teoría**)
+
+Script con la función de estimación del multivariograma, utilizando principios del LMC y una base de funciones otonormales.
+
+-------------------------------------------------------------------------------
+### `parameters.lmc.R` (revisar)
+
+Genera la matriz con parámetros del modelo lineal de corregionalización ajustado a las coefcientes de las funciones base.
+
+-------------------------------------------------------------------------------
+### `variogrmas.R` (revisar)
+
+Función que genera las matrices de variogramas a través de los coeficientes de las funciones base utilizando parámetros del modelo lineal de corregionalización.
+
+
+
 
 
 
