@@ -116,6 +116,30 @@ Contiene todas la mayoria de funciones para la ejecucuíon del algoritmo **K-med
                 media=c(5,15))`
   + Simula curvas sin correlación espacial.
   
+ -------------------------------------------------------------------------------
+### `git_moranindex.R`
+
+Contiene función para el cálculo del índice de moran para entre grupos e intra grupos.
+
++ `MoranGfda(b,weig.mat,data,coord,tipo="entre")`
+  + `b` objeto resultante del algoritmo `kmean.fdas`.
+  + `weig.mat` matriz de pesos (revisar índice teórico). Se puede utilizar la matriz de ayacencia de los grupos o la matriz de distancias entre las curvas.
+  + `data` matriz de curvas.
+  + `coord` matriz de coordenadas.
+  + `tipo` parámetro que especifica si se realiza el cálculo del índice entre grupos o intra grupos, por defecto `tipo="entre"`.
+
+-------------------------------------------------------------------------------
+### `git_gearyindex.R`
+
+Contiene función para el cálculo del índice de geary para entre grupos e intra grupos.
+
++ `GearyGfda(b,weig.mat,data,coord,tipo="entre")`
+  + `b` objeto resultante del algoritmo `kmean.fdas`.
+  + `weig.mat` matriz de pesos (revisar índice teórico). Se puede utilizar la matriz de ayacencia de los grupos o la matriz de distancias entre las curvas.
+  + `data` matriz de curvas.
+  + `coord` matriz de coordenadas.
+  + `tipo` parámetro que especifica si se realiza el cálculo del índice entre grupos o intra grupos, por defecto `tipo="entre"`. 
+  
 -------------------------------------------------------------------------------
 ### `aplderiv.R`
 
@@ -192,7 +216,7 @@ Función que genera las matrices de variogramas a través de los coeficientes de
 
 Contiene función para el cálculo del índice de moran para entre grupos e intra grupos.
 
-+ MoranGfda(b,weig.mat,data,coord,tipo="entre")
++ `MoranGfda(b,weig.mat,data,coord,tipo="entre")`
   + `b` objeto resultante del algoritmo `kmean.fdas`.
   + `weig.mat` matriz de pesos (revisar índice teórico). Se puede utilizar la matriz de ayacencia de los grupos o la matriz de distancias entre las curvas.
   + `data` matriz de curvas.
@@ -204,7 +228,7 @@ Contiene función para el cálculo del índice de moran para entre grupos e intr
 
 Contiene función para el cálculo del índice de geary para entre grupos e intra grupos.
 
-+ GearyGfda(b,weig.mat,data,coord,tipo="entre")
++ `GearyGfda(b,weig.mat,data,coord,tipo="entre")`
   + `b` objeto resultante del algoritmo `kmean.fdas`.
   + `weig.mat` matriz de pesos (revisar índice teórico). Se puede utilizar la matriz de ayacencia de los grupos o la matriz de distancias entre las curvas.
   + `data` matriz de curvas.
