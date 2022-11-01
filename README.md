@@ -207,7 +207,7 @@ Script with the multivariogram estimation function, using LMC principles and a b
 Generates the matrix with parameters of the linear co-regionalization model fitted to the quotients of the basis functions.
 
 -------------------------------------------------------------------------------
-### `variogrmas.R` (revisar)
+### `variogrmas.R` (review)
 
 Function that generates the variogram matrices through the coefficients of the basis functions using parameters of the linear co-regionalization model.
 
