@@ -151,7 +151,7 @@ Script that contains the application of the previous method (`kmean.fdas`) to th
 Object containing the final classification of the NDVI data.
 
 -------------------------------------------------------------------------------
-### `covariances.R` (revisar)
+### `covariances.R` (review)
 
 Script that generates the covariance matrix through the coefficients of the basis functions. It uses parameters of the linear co-regionalization model.
 
@@ -161,7 +161,7 @@ Script that generates the covariance matrix through the coefficients of the basi
 Script containing the function for the calculation of spatial correlation using the Geary index. The function is designed to be used in parallel processes. 
 
 -------------------------------------------------------------------------------
-### `fit.lmc.R` (revisar)
+### `fit.lmc.R` (review)
 
 Estimates a linear model of co-regionalization to the coefficients of the function basis.
 
