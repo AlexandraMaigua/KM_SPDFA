@@ -1,63 +1,63 @@
 # KM_SPDFA
 K-means algorithm  for functional spatially correlated  data 
 
-Este algoritmo se basó en la función `kmeans.fd` de la librería [`fda.usc`](https://github.com/moviedo5/fda.usc) .
+This algorithm was based on the `kmeans.fd` function of library [`fda.usc`](https://github.com/moviedo5/fda.usc) .
 
-## Instructivo
+## Functions description
 
 ------------------------------------------------------------------------------------
 ### `functions.R`
 
-Contiene todas la mayoria de funciones para la ejecucuíon del algoritmo **K-medias**
+Contains all major functions for the execution of the **K-means** algorithm.
 
 + `Ml2_dist(data, nbasis=65)`
-  + Calcula la matriz de distancia entre curvas utilizando la norma $L^2$.
-  + `data` matriz de datos con curvas.
-  + `nbasis` número de funciones base para la suavización de las curvas (`data`)
+  + Calculate the distance matrix between curves using the $L^2$ norm.
+  + `data` data matrix with curves.
+  + `nbasis` number of basis functions for curve smoothing (`data`)
 
 + `kmeans.center.iniL2(fdataobj,Vmdist=FALSE,coord=NULL, ncl = 2, 
                                cov.model="spherical", Kappa=NULL,multivgm=multivgm,
                                method = "sample", max.iter = 10000, max.comb = 1e+06, ...)`
-  + Inicializa los centroides.                        
-  + `fdataobj` objeto funcional que contiene los datos de las curvas.
-  + `Vmdist` parámetro que especifíca que el cálculo de la matriz de distancia se realice con ponderación mtv o tvm. Por defecto `FALSE`.
-  +  `coord` campo que especifíca que las coordenadas a utilizarse en el cálculo de la matriz de distancia siempre y cuando `Vmdist=TRUE`.
-  +  `cov.model` especifica el modelo de covarianza a utilizarse para la modelización del variograma y la ponderación de la matriz. Trabaja con modelos comunes de `vgm` y `cov.spatial`.
-  +  `Kappa` parámetro que trabaja con `cov.model="Mat"`.
-  +  `multivgm` parámetro que indica si la ponderación se realiza con el variograma multivariado.
-  +  `method` el método utilizado para inicializar los centroides. `sample` toma una muestra de curvas y calcula las `K` máximas distancias para que sean los centroides. `exact` calcula todas las distancias entre las curvas y selecciona `K` centroides. Por defecto `sample`.
-  +  `max.iter` número máximo de iteraciones para la elección de los centroides, funciona si `method="sample"` y sirve como criterio de parada.
-  +  `max.comb` número máximo de selección de centros, funciona si `method=exact` .
+  + Initializes the centroids.
+  + `fdataobj` functional object containing the curves data.
+  + `Vmdist` parameter that specifies that the calculation of the distance matrix is performed with mtv or tvm weighting. Default `FALSE`.
+  +  `coord` field specifying that the coordinates to be used in the calculation of the distance matrix as long as `Vmdist=TRUE`.
+  +  `cov.model` specifies the covariance model to be used for variogram modeling and matrix weighting. It works with common `vgm` and `cov.spatial` models.
+  +  `Kappa` parameter that works with `cov.model="Mat"`.
+  +  `multivgm` parameter indicating whether the weighting is performed with the multivariate variogram.
+  +  `method` the method used to initialize the centroids. `sample` takes a sample of curves and calculates the `K` maximum distances to be the centroids. `exact` calculates all distances between curves and selects `K` centroids. The default `sample`.
+  +  `max.iter` maximum number of iterations for the choice of centroids, works if `method="sample"` and serves as a stopping criterion.
+  +  `max.comb` maximum number of site selection, works if `method=exact`.
   
   
 + `MVari(data,coord,nugget.fix=NULL, max.dist.variogram=NULL,
                 multivgm=multivgm ,nbasis=65,cov.model="Gau",Kappa=NULL)`
-  + Calcula la matriz de distancia entre curvas ponderada por el trazo-variograma o multivariograma.
-  +  `data` matriz con datos de las curvas.
-  +  `coord` matriz de coordenadas asociadas a las curvas de `data`.
-  +  `nugget.fix` especifíca si para la estimación del efecto pepita, el `nugget` se fija a algún valor o lo estima automático.
-  +  `max.dist.variogram` distancia máxima utilizada en el cálculo del variograma empírico y la estimación del mismo.
-  +  `multivgm` especifíca si la ponderación se la realiza mediante multivariograma.
-  +  `nbasis` número de funciones base para la suavización de las curvas y su cálculo de distancias con `Ml2_dist`.
-  +  `cov.model` modelo de covarianza espacial utilizada en la estimación del variograma.
-  +  `Kappa` parámetro utilizado si `cov.model="Mat"`.
+  + Calculates the distance matrix between curves weighted by the plot-variogram or multivariogram.
+  +  `data` matrix with curves data.
+  +  `coord` matrix of coordinates associated with the `data` curves.
+  +  `nugget.fix` specifies whether for the estimation of the nugget effect, the `nugget` is set to some value or it is estimated automatically.
+  +  `max.dist.variogram` maximum distance used in the calculation of the empirical variogram and its estimation.
+  +  `multivgm` specifies whether the weighting is done by multivariogram.
+  +  `nbasis` number of basis functions for the smoothing of the curves and their distance calculation with `Ml2_dist`.
+  +  `cov.model` spatial covariance model used in the estimation of the variogram.
+  +  `Kappa` parameter used if `cov.model="Mat"`.
 
 
 + `kmeans.assig.groups(out,draw=FALSE,...)`
-  + Asigna las curvas a los grupos.
-  + `out` objeto resultante de aplicar `kmeans.center.iniL2`
-  + `draw` especifíca si se quiere visualizar la asignación de las curvas en cada iteración.
+  + Assign the curves to the groups.
+  + `out` object resulting from applying `kmeans.center.iniL2`.
+  + `draw` specifies whether you want to display the assignment of the curves at each iteration.
 
 
 + `kmeans.centers.update(out,group
                                ,dfunc=func.trim.FM,draw=FALSE
                                ,par.dfunc=list(trim=0.05)
                                ,...)`
-  + Actualiza los centroides.
-  + `out` objeto que contiene una asignación de curvas a centros previa como `kmeans.center.iniL2`.
-  + `dfunc` medida de profundiad, retorna el promedio de las (1-`trim`)%  curvas mas profundas, por defecto se utiliza la de Fraiman-Muniz (`func.trim.FM`).
-  + `draw` especifíca si se quiere visualizar la actualización de los centroides de cada iteración.
-  + `par.dfunc` objeto que almacena los parámetros para el uso de la medidad de profundidad `dfunc`.
+  + Updates the centroids.
+  + `out` object containing a previous mapping of curves to centers as `kmeans.center.iniL2`.
+  + `dfunc` depth measure, returns the average of the deepest (1-`trim`)% curves, by default the Fraiman-Muniz (`func.trim.FM`) is used.
+  + `draw` specifies whether to display the centroid update for each iteration.
+  + `par.dfunc` object that stores the parameters for the use of the depth measurement `dfunc`.
 
 + `kmeans.fdM(fdataobj, ncl = 2, Vmdist=FALSE,coord=NULL,
                       cov.model="spherical", Kappa=NULL, multivgm=multivgm,
@@ -65,110 +65,110 @@ Contiene todas la mayoria de funciones para la ejecucuíon del algoritmo **K-med
                       max.iter = 10000, par.dfunc = list(trim = 0.05), 
                       method = "sample", cluster.size = 1, draw = FALSE, ...) `
                       
-  + Realiza el proceso completo del algoritmo k-medias para datos funcionales con correlación espacial.
-  + `fdataobj` objeto de tipo `fdata` que contiene las curvas.
-  + `ncl` número de clústers a formarse.
-  + `Vmdist` parámetro que especifíca que el cálculo de la matriz de distancia se realice con ponderación mtv o tvm. Por defecto `FALSE`.
-  +  `coord` campo que especifíca que las coordenadas a utilizarse en el cálculo de la matriz de distancia siempre y cuando `Vmdist=TRUE`.
-  +  `cov.model` especifica el modelo de covarianza a utilizarse para la modelización del variograma y la ponderación de la matriz. Trabaja con modelos comunes de `vgm` y `cov.spatial`.
-  +  `Kappa` parámetro que trabaja con `cov.model="Mat"`.
-  +  `multivgm` parámetro que indica si la ponderación se realiza con el variograma multivariado.
-  +  `dfunc` medida de profundiad, retorna el promedio de las (1-`trim`)%  curvas mas profundas, por defecto se utiliza la de Fraiman-Muniz (`func.trim.FM`).
-  +  `max.iter` número máximo de iteraciones para la elección de los centroides, funciona si `method="sample"` y sirve como criterio de parada.
-  + `par.dfunc` objeto que almacena los parámetros para el uso de la medidad de profundidad `dfunc`.
-  +  `method` el método utilizado para inicializar los centroides. `sample` toma una muestra de curvas y calcula las `K` máximas distancias para que sean los centroides. `exact` calcula todas las distancias entre las curvas y selecciona `K` centroides. Por defecto `sample`.
-  +  `cluster.size` número de elementos mínimo en los clústers.
-  + `draw` especifíca si se quiere visualizar la actualización de los centroides de cada iteración.
+  + Performs the full process of the k-means algorithm for spatially correlated functional data.
+  + `fdataobj` object of type `fdata` containing the curves.
+  + `ncl` number of clusters to be formed.
+  + `Vmdist` parameter that specifies that the calculation of the distance matrix is performed with mtv or tvm weighting. Default `FALSE`.
+  +  `coord` field specifying that the coordinates to be used in the calculation of the distance matrix as long as `Vmdist=TRUE`.
+  +  `cov.model` specifies the covariance model to be used for variogram modeling and matrix weighting. It works with common `vgm` and `cov.spatial` models.
+  +  `Kappa` parameter that works with `cov.model="Mat"`.
+  +  `multivgm` parameter indicating whether the weighting is performed with the multivariate variogram.
+  +  `dfunc` depth measure, returns the average of the deepest (1-`trim`)% curves, by default the Fraiman-Muniz (`func.trim.FM`) is used.
+  +  `max.iter` maximum number of iterations for the choice of centroids, works if `method="sample"` and serves as a stopping criterion.
+  + `par.dfunc` object that stores the parameters for the use of the depth measurement `dfunc`.
+  +  `method` the method used to initialize the centroids. `sample` takes a sample of curves and calculates the `K` maximum distances to be the centroids. `exact` calculates all distances between curves and selects `K` centroids. The default `sample`.
+  +  `cluster.size` minimum number of elements in the clusters.
+  + `draw` specifies whether to display the centroid update for each iteration.
    
    
 + `kmeans.fdas(fdataobj, ncl = 2,Vmdist=FALSE,coord=NULL,
                       cov.model=cov.model,Kappa=NULL,
                       multivgm=FALSE)`
-  + Permite realizar la clusterización utilizando la información espacial o solo la de las curvas.
-  + Los parámetros de la función son los mismos que la función `kmeans.fdM`.
+  + It allows clustering using spatial information or only the information of the curves.
+  + The function parameters are the same as the `kmeans.fdM` function.
 
 
 
 + `SSBindex1(a)`
-  + Calcula el índice SSB, entre grupos. Trabaja solo con la información de los centroides.
-  + `a` objeto resultante de aplicar la función `kmeans.fdas`.
+  + Calculates the SSB index, between groups. Works only with centroid information.
+  + `a` object resulting from applying the `kmeans.fdas` function.
 
 + `SSWindex<-function(a,data)`
-   + Calcula el índice SSW, intra grupos. Trabaja con los centroides y las curvas asociadas a cada cluster.
-   + `a` objeto resultante de aplicar la función `kmeans.fdas`.
-   + `data` matriz con curvas.
+   + Calculates the SSW index, within clusters. Works with the centroids and curves associated with each cluster.
+   + `a` object resulting from applying the `kmeans.fdas` function.
+   + `data` matrix with curves.
 
 + `metod(datat,metodo="tvm")`
-  + Calcula el porcentaje de correcta clasificación.
-  + `datat` objeto resultante del proceso de simulación (`simu9.R`).
-  + `metodo` especifica los resultados obtenidos del método `mtv` o `tvm`.
+  + Calculates the percentage of correct classification.
+  + `datat` object resulting from the simulation process (`simu9.R`).
+  + `metodo` specifies the results obtained from the `mtv` or `tvm` method.
 
 + `Datsim(Eu.d,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
                 media=c(5,6))`
-  + Simula curvas con correlación espacial.
-  + `Eu.d` matriz de distancias espacial.
-  +  `cov.model` modelo de covarianza espacial para la dependencia espacial.
-  +  `cov.pars` parámetros del modelo de covarianza.
-  +  `Kappa` parámetro si se utiliza `cov.model="Mat"`.
-  +  `media` vector de valores de las medias funcionales constantes.
+  + Simulates curves with spatial correlation.
+  + `Eu.d` spatial distance matrix.
+  +  `cov.model` spatial covariance model for spatial dependence.
+  +  `cov.pars` parameters of the covariance model.
+  +  `Kappa` parameter if `cov.model="Mat"` is used.
+  +  `media` vector of constant functional mean values.
 
 + `Datsim1(Eu.d=NULL,cov.model="exponential",cov.pars=c(0.5,1.5),Kappa=NULL,
                 media=c(5,15))`
-  + Simula curvas sin correlación espacial.
+  + Simulates curves without spatial correlation.
   
  -------------------------------------------------------------------------------
 ### `git_moranindex.R`
 
-Contiene función para el cálculo del índice de moran para entre grupos e intra grupos.
+Contains function for the calculation of the moran index for inter-group and intra-group.
 
 + `MoranGfda(b,weig.mat,data,coord,tipo="entre")`
-  + `b` objeto resultante del algoritmo `kmean.fdas`.
-  + `weig.mat` matriz de pesos (revisar índice teórico). Se puede utilizar la matriz de ayacencia de los grupos o la matriz de distancias entre las curvas.
-  + `data` matriz de curvas.
-  + `coord` matriz de coordenadas.
-  + `tipo` parámetro que especifica si se realiza el cálculo del índice entre grupos o intra grupos, por defecto `tipo="entre"`.
+  + `b` object resulting from the `kmean.fdas` algorithm.
+  + `weig.mat` matrix of weights (check theoretical index). It is possible to use either the ayacency matrix of the groups or the matrix of distances between the curves.
+  + `data` matrix of curves.
+  + `coord` coordinate matrix.
+  + `tipo` parameter that specifies whether the index calculation is performed between groups or within groups, by default `type="between"`.
 
 -------------------------------------------------------------------------------
 ### `git_gearyindex.R`
 
-Contiene función para el cálculo del índice de geary para entre grupos e intra grupos.
+Contains function for the calculation of the geary index for inter-group and intra-group.
 
 + `GearyGfda(b,weig.mat,data,coord,tipo="entre")`
-  + `b` objeto resultante del algoritmo `kmean.fdas`.
-  + `weig.mat` matriz de pesos (revisar índice teórico). Se puede utilizar la matriz de ayacencia de los grupos o la matriz de distancias entre las curvas.
-  + `data` matriz de curvas.
-  + `coord` matriz de coordenadas.
-  + `tipo` parámetro que especifica si se realiza el cálculo del índice entre grupos o intra grupos, por defecto `tipo="entre"`. 
+  + `b` object resulting from the `kmean.fdas` algorithm.
+  + `weig.mat` matrix of weights (check theoretical index). It is possible to use either the ayacency matrix of the groups or the matrix of distances between the curves.
+  + `data` matrix of curves.
+  + `coord` coordinate matrix.
+  + `tipo` parameter that specifies whether the index calculation is performed between groups or within groups, by default `type="between"`. 
   
 -------------------------------------------------------------------------------
 ### `aplderiv.R`
 
-Script que contiene la aplicación del método anterior (`kmean.fdas`) a los datos del NDVI del Ecuador y también realiza el gráfico de los grupos obtenidos.
+Script that contains the application of the previous method (`kmean.fdas`) to the NDVI data of Ecuador and also graphs the obtained groups.
 
 -------------------------------------------------------------------------------
 ### `bout.Rdata`
 
-Objeto que contiene la clasificación final de los datos del NDVI.
+Object containing the final classification of the NDVI data.
 
 -------------------------------------------------------------------------------
 ### `covariances.R` (revisar)
 
-Script que genera la matriz de covarianza a través de los coeficientes de la funciones base. Usa parámetros del modelo lineal de corregionalización.
+Script that generates the covariance matrix through the coefficients of the basis functions. It uses parameters of the linear co-regionalization model.
 
 -------------------------------------------------------------------------------
 ### `fgeary.R`
 
-Script que contine la función para el cálculo de correlación espacial utilizando el índice de Geary. La función está diseñada para que se utilice en procesos de paralelos. 
+Script containing the function for the calculation of spatial correlation using the Geary index. The function is designed to be used in parallel processes. 
 
 -------------------------------------------------------------------------------
 ### `fit.lmc.R` (revisar)
 
-Estima un modelo lineal de corregionalización a los coeficientes de la base de funciones.
+Estimates a linear model of co-regionalization to the coefficients of the function basis.
 
 -------------------------------------------------------------------------------
 ### `fmoran.R`
 
-Script que contine la función para el cálculo de correlación espacial utilizando el índice de Moran. La función está diseñada para que se utilice en procesos de paralelos. 
+Script containing the function for the calculation of spatial correlation using the Moran index. The function is designed to be used in parallel processes. 
 
 
 -------------------------------------------------------------------------------
@@ -179,61 +179,61 @@ Script que se utiliza para la generación de gráficos de la clasificación de g
 -------------------------------------------------------------------------------
 ### `git_pixeles.R`
 
-Script utilizado para crear gráficos de grupos obtenidos por pares, sobre shapes de demarcación hidrográfica.
+Script used to create group plots obtained by pairs, on hydrographic demarcation shapes.
 
 -------------------------------------------------------------------------------
 ### `git_simu4.R`
 
-Script utilizado para realizar simulaciones específicas y obtener la clasificación de manera gráfica.
+Script used to perform specific simulations and obtain the classification graphically.
 
 -------------------------------------------------------------------------------
 ### `git_simu9.R`
 
-Script utilizado para realizar las simulaciones en paralelo y obtener los porcentajes de correcta clasificación.
+Script used to perform the simulations in parallel and obtain the percentages of correct classification.
 
 -------------------------------------------------------------------------------
 ### `git_test_function.R`
 
-Script para la realización de gráfcios de curvas en cada grupo y correlaciones espaciales y temporales.
+Script for the realization of graphs of curves in each group and spatial and temporal correlations.
 
 -------------------------------------------------------------------------------
-### `multiv.R` (**revisar teoría**)
+### `multiv.R` (**review theory**)
 
-Script con la función de estimación del multivariograma, utilizando principios del LMC y una base de funciones otonormales.
+Script with the multivariogram estimation function, using LMC principles and a basis of otonormal functions.
 
 -------------------------------------------------------------------------------
-### `parameters.lmc.R` (revisar)
+### `parameters.lmc.R` (review)
 
-Genera la matriz con parámetros del modelo lineal de corregionalización ajustado a las coefcientes de las funciones base.
+Generates the matrix with parameters of the linear co-regionalization model fitted to the quotients of the basis functions.
 
 -------------------------------------------------------------------------------
 ### `variogrmas.R` (revisar)
 
-Función que genera las matrices de variogramas a través de los coeficientes de las funciones base utilizando parámetros del modelo lineal de corregionalización.
+Function that generates the variogram matrices through the coefficients of the basis functions using parameters of the linear co-regionalization model.
 
 -------------------------------------------------------------------------------
 ### `git_moranindex.R`
 
-Contiene función para el cálculo del índice de moran para entre grupos e intra grupos.
+Contains function for the calculation of the moran index for inter-group and intra-group.
 
 + `MoranGfda(b,weig.mat,data,coord,tipo="entre")`
-  + `b` objeto resultante del algoritmo `kmean.fdas`.
-  + `weig.mat` matriz de pesos (revisar índice teórico). Se puede utilizar la matriz de ayacencia de los grupos o la matriz de distancias entre las curvas.
-  + `data` matriz de curvas.
-  + `coord` matriz de coordenadas.
-  + `tipo` parámetro que especifica si se realiza el cálculo del índice entre grupos o intra grupos, por defecto `tipo="entre"`.
+  + `b` object resulting from the `kmean.fdas` algorithm.
+  + `weig.mat` matrix of weights (check theoretical index). It is possible to use either the ayacency matrix of the groups or the matrix of distances between the curves.
+  + `data` matrix of curves.
+  + `coord` coordinate matrix.
+  + `tipo` parameter that specifies whether the index calculation is performed between groups or within groups, by default `type="between"`.
 
 -------------------------------------------------------------------------------
 ### `git_gearyindex.R`
 
-Contiene función para el cálculo del índice de geary para entre grupos e intra grupos.
+Contains function for the calculation of the geary index for inter-group and intra-group.
 
 + `GearyGfda(b,weig.mat,data,coord,tipo="entre")`
-  + `b` objeto resultante del algoritmo `kmean.fdas`.
-  + `weig.mat` matriz de pesos (revisar índice teórico). Se puede utilizar la matriz de ayacencia de los grupos o la matriz de distancias entre las curvas.
-  + `data` matriz de curvas.
-  + `coord` matriz de coordenadas.
-  + `tipo` parámetro que especifica si se realiza el cálculo del índice entre grupos o intra grupos, por defecto `tipo="entre"`.
+  + `b` object resulting from the `kmean.fdas` algorithm.
+  + `weig.mat` matrix of weights (check theoretical index). It is possible to use either the ayacency matrix of the groups or the matrix of distances between the curves.
+  + `data` matrix of curves.
+  + `coord` coordinate matrix.
+  + `tipo` parameter that specifies whether the index calculation is performed between groups or within groups, by default `type="between"`.
 
 
 
