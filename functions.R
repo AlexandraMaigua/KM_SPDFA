@@ -16,7 +16,7 @@ library(parallel)
 library(data.table)
 library(geofd)
 
-
+# hola mundo
 
 Ml2_dist<-function(data,nbasis=65)
 {
